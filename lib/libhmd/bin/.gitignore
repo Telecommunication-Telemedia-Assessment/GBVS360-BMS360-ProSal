@@ -1,0 +1,20 @@
+# Python
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# R
+# History files
+.Rhistory
+.Rapp.history
+
+# # Session Data files
+.RData
+
+
+# compiled stuff
+*.o
+*.obj
+*.d
+/bin/*

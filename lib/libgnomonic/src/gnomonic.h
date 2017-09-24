@@ -1,0 +1,182 @@
+/*
+ * libgnomonic - Gnomonic projection algorithms library
+ *
+ * Copyright (c) 2013-2015 FOXEL SA - http://foxel.ch
+ * Please read <http://foxel.ch/license> for more information.
+ *
+ *
+ * Author(s):
+ *
+ *      Nils Hamel <n.hamel@foxel.ch>
+ *
+ *
+ * This file is part of the FOXEL project <http://foxel.ch>.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+ * Additional Terms:
+ *
+ *      You are required to preserve legal notices and author attributions in
+ *      that material or in the Appropriate Legal Notices displayed by works
+ *      containing it.
+ *
+ *      You are required to attribute the work as explained in the "Usage and
+ *      Attribution" section of <http://foxel.ch/license>.
+ */
+
+    /*! \file   gnomonic.h
+     *  \author Nils Hamel <n.hamel@foxel.ch>
+     *
+     *  Library common header file
+     */
+
+    /*! \mainpage libgnomonic
+     *
+     *  \section libgnomonic
+     *  \section _ Gnomonic projection algorithms library
+     *  
+     *  This library is developed to perform gnomonic projections from a entire
+     *  equirectangular mapping of spherical panoramas to extract rectilinear
+     *  mappings. It also ensure gnomonic projections of specific tiles of
+     *  equirectangular mappings to obtain rectilinear mappings from single 
+     *  tiles. Each provided projection algorithm comes with an implementation
+     *  of its inverse operation. The library also provides equirectangular 
+     *  transformation algorithms.
+     *
+     *  \section Documentation
+     *
+     *  A detailed documentation can be generated through doxygen. A more general
+     *  documentation can be consulted at https://github.com/FoxelSA/libgnomonic/wiki.
+     *
+     *  \section Copyright
+     * 
+     *  Copyright (c) 2013-2015 FOXEL SA - http://foxel.ch \n
+     *  This program is part of the FOXEL project <http://foxel.ch>.
+     *  
+     *  Please read the COPYRIGHT.md file for more information.
+     *
+     *  \section License
+     *
+     *  This program is licensed under the terms of the GNU Affero General Public
+     *  License v3 (GNU AGPL), with two additional terms. The content is licensed
+     *  under the terms of the Creative Commons Attribution-ShareAlike 4.0
+     *  International (CC BY-SA) license.
+     *
+     *  You must read <http://foxel.ch/license> for more information about our
+     *  Licensing terms and our Usage and Attribution guidelines.
+     */
+
+/*
+    Header - Include guard
+ */
+
+    # ifndef __LG_GNOMONIC__
+    # define __LG_GNOMONIC__
+
+/*
+    Header - C/C++ compatibility
+ */
+
+    # ifdef __cplusplus
+    extern "C" {
+    # endif
+
+/*
+    Header - Includes
+ */
+
+    # include <stdio.h>
+    # include <math.h>
+    # include <stdint.h>
+    # ifdef __OPENMP__
+    # include <omp.h>
+    # endif
+    # include "inter-all.h"
+
+/*
+    Header - Preprocessor definitions
+ */
+
+    /* Define mathematical constants */
+    # define LG_PI              ( lg_Real_s( 3.14159265358979323846264338327950 ) )
+    # define LG_PI2             ( lg_Real_s( 6.28318530717958647692528676655901 ) )
+    # define LG_DEG2RAD         ( LG_PI / lg_Real_s( 180.0 ) )
+
+/*
+    Header - Preprocessor macros
+ */
+
+    /* Define casting macro */
+    # define lg_Size_c( x )     ( ( lg_Size_t ) x )
+    # define lg_Real_c( x )     ( ( lg_Real_t ) x )
+
+    /* Define litteral suffix */
+    # define lg_Size_s( x )     INT64_C( x )
+    # define lg_Real_s( x )     ( x )
+
+    /* Define formated output specifiers */
+    # define lg_Size_p          PRId64
+    # define lg_Real_p          "lf"
+
+    /* Define formated input specifiers */
+    # define lg_Size_i          SCNu64
+    # define lg_Real_i          "lf"
+
+    /* Define mathematical function */
+    # define LG_ATN(x,y)        ( ( ( x ) >= 0 ) ? ( ( ( y ) >= 0 ) ? atan( ( y ) / ( x ) ) : LG_PI2 + atan( ( y ) / ( x ) ) ) : LG_PI + atan( ( y ) / ( x ) ) )
+    # define LG_ASN(x)          ( asin( x ) )
+    # define LG_EUCLR3(v)       ( sqrt( v[0] * v[0] + v[1] * v[1] + v[2] * v[2] ) )
+
+    /* Define bitmap padding computation macro */
+    # define LG_B4PAD( l )      ( ( ( l ) % lg_Size_s( 4 ) ) != lg_Size_s( 0 ) ? ( l + lg_Size_s( 4 ) - ( ( l ) % lg_Size_s( 4 ) ) ) : ( l ) )
+
+    /* Define bitmap element accessing macro */
+    # define LG_B4(b,p,l,x,y,c) ( * ( b + p * y + l * x + c ) )
+
+/*
+    Header - Typedefs
+ */
+
+    /* Define general void */
+    typedef void    lg_Void_t;
+
+    /* Define index type */
+    typedef int64_t lg_Size_t;
+
+    /* Define floating type */
+    typedef double  lg_Real_t;
+
+/*
+    Header - Structures
+ */
+
+/*
+    Header - Function prototypes
+ */
+
+/*
+    Header - C/C++ compatibility
+ */
+
+    # ifdef __cplusplus
+    }
+    # endif
+
+/*
+    Header - Include guard
+ */
+
+    # endif
+

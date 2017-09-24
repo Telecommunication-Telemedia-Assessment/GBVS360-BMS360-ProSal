@@ -1,0 +1,12 @@
+
+
+Images for testing purpose:
+http://www.freegreatpicture.com/seamless-360-degree-panorama/degree-seamless-panoramic-1434
+
+
+Saliency maps: 
+http://people.csail.mit.edu/tjudd/WherePeopleLook/index.html
+
+
+Makefile 
+http://owen.sj.ca.us/~rk/howto/slides/make/slides/makerecurs.html

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="LSD">
+      <UniqueIdentifier>{891d1fb7-ff74-4a25-a335-950af103f1d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JLinkage">
+      <UniqueIdentifier>{53e18b66-c2a5-4813-9bf7-60e775f7ff5b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\VPSample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VPCluster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VPD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lsd\src\lsd.cpp">
+      <Filter>LSD</Filter>
+    </ClCompile>
+    <ClCompile Include="jlinkage\src\RandomSampler.cpp">
+      <Filter>JLinkage</Filter>
+    </ClCompile>
+    <ClCompile Include="jlinkage\src\Utilities.cpp">
+      <Filter>JLinkage</Filter>
+    </ClCompile>
+    <ClCompile Include="jlinkage\src\JLinkage.cpp">
+      <Filter>JLinkage</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\VPCluster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VPD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VPPrimitive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VPSample.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lsd\src\lsd.h">
+      <Filter>LSD</Filter>
+    </ClInclude>
+    <ClInclude Include="jlinkage\src\PrimitiveFunctions.h">
+      <Filter>JLinkage</Filter>
+    </ClInclude>
+    <ClInclude Include="jlinkage\src\Utilities.h">
+      <Filter>JLinkage</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

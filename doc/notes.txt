@@ -1,0 +1,105 @@
+Step	Stage
+[1]	[input] equirectangular projection 
+[2] 	rectilinear projection
+[3] 	Post-processing: display/lense effect
+[4] 	Retinal image projection
+[5] 	Visual attention for a given head position
+[6] 	Pooling saliency maps from different head poses
+[7] [output] equirectangular projection saliency map
+
+Extra features:
+> http://docs.opencv.org/trunk/d8/d8a/namespacecv_1_1ximgproc_1_1segmentation.html
+
+Pooling of feature maps:
+> get the matrix for every images / input & output
+> Apply multiple regression / neural network (see neuralnet R package) to aggregate feature maps (rather than the mean + sum) 
+
+
+
+------------------------------------------------------------------------
++ Task [1-2]: space coordinate transformations
+
+We need to perform a equirectangular projection to a rectilinear projection
+> http://hugin.sourceforge.net/docs/manual/Equirectangular.html
+> http://hugin.sourceforge.net/docs/manual/Rectilinear_Projection.html
+
+Math:
+> http://mathworld.wolfram.com/GnomonicProjection.html
+
+
+Libs:
+> http://foxel.ch/
+> https://github.com/FoxelSA/libgnomonic
+
+
+Tool: 
+http://ggnome.com/pano2vr
+http://ggnome.com/doc/pano2vr/5/output-transformation/
+
+
+------------------------------------------------------------------------
++ Task [3]: Modeling of system artifacts
+
+Artifacts:
+> screendoor effect
+> motion blur
+> color bleeding
+
+Code - shaders:
+https://github.com/mkeblx/oculus-sim
+
+Info on systems technical parameters: (fitting artifacts parameters)
+> http://www.tomshardware.co.uk/vive-rift-playstation-vr-comparison,review-33556-3.html
+
+http://www.tomshardware.com/news/abrash-oculus-connect-3-predictions,32810.html
+
+
+
+
+
+http://www.realite-virtuelle.com/oculus-connect-3-michael-abrash-0710
+
+Actuellement, la réalité virtuelle offre un champ de vision de 90 degrés, à raison de 15 pixels par degrés, et une distance de focale de 2 mètres. L’œil humain quant à lui possède un champ de vision de 220 à 230 degrés, 120 pixels par degrés, et une focale variable. 
+
+Selon Michael Abrash, d’ici 2021, la RV devrait atteindre une résolution de 4Kx4K par œil. La densité de pixel devrait augmenter à 30 pixels par degrés et le champ de vision s’élargir à 140 degrés. Pour parvenir à ce résultat, il sera nécessaire de découvrir de nouvelles technologies optiques. Les lentilles Fresnel utilisées par le Rift sont limitées à 100 degrés, après quoi une distorsion inacceptable apparaît
+
+
+
+------------------------------------------------------------------------
++ Task [4]: 
+
+Consider technical parameters to transform the pixel domain to a perceptual domain: 
+	+ cycle/deg 
+	+ decomposition based on luminance / chroma 
+
+This will be linked to the model Task [5]
+
+------------------------------------------------------------------------
++ Task [5]: 
+
+Check saliency models used... 
+
+Models:
+> saliency.mit.edu
+
+To check C++-based models 
+> http://www.cse.cuhk.edu.hk/~leojia/projects/hsaliency/index.html
+> http://mmcheng.net/salobjbenchmark/
+
+
+------------------------------------------------------------------------
++ Task [6]: 
+
+TBD: Maybe simple patching + Markov chain to model head movement based on global saliency maps 
+	+ exploratory 
+	+ if a salient area is identified, then the head may move to put the object into the center (?)
+	+ Markov model should be trained on fixation data from ground truth
+
+
+------------------------------------------------------------------------
++ Task [7]: space coordinate transformations
+
+Same as [1].
+
+
+

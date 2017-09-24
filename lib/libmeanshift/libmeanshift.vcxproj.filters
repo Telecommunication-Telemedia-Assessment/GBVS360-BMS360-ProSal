@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\segm">
+      <UniqueIdentifier>{8fb47a47-3012-4ce7-ab82-953754e72f36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\edge">
+      <UniqueIdentifier>{d2505718-d8be-47a4-9e8d-2b538a0778e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\edge">
+      <UniqueIdentifier>{39453880-46ec-49ac-b147-7f674d690c8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\segm">
+      <UniqueIdentifier>{819fd17d-07ad-4c6b-9b9d-6428ff3870c5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Segm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\segm\ms.cpp">
+      <Filter>Source Files\segm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\segm\msImageProcessor.cpp">
+      <Filter>Source Files\segm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\segm\msSys.cpp">
+      <Filter>Source Files\segm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\segm\msSysPrompt.cpp">
+      <Filter>Source Files\segm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\segm\RAList.cpp">
+      <Filter>Source Files\segm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\segm\rlist.cpp">
+      <Filter>Source Files\segm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\edge\BgEdge.cpp">
+      <Filter>Source Files\edge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\edge\BgEdgeDetect.cpp">
+      <Filter>Source Files\edge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\edge\BgEdgeList.cpp">
+      <Filter>Source Files\edge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\edge\BgGlobalFc.cpp">
+      <Filter>Source Files\edge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\edge\BgImage.cpp">
+      <Filter>Source Files\edge</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Segm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\segm\ms.h">
+      <Filter>Header Files\segm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\segm\msImageProcessor.h">
+      <Filter>Header Files\segm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\segm\msSys.h">
+      <Filter>Header Files\segm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\segm\RAList.h">
+      <Filter>Header Files\segm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\segm\rlist.h">
+      <Filter>Header Files\segm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\segm\tdef.h">
+      <Filter>Header Files\segm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\edge\BgDefaults.h">
+      <Filter>Header Files\edge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\edge\BgEdge.h">
+      <Filter>Header Files\edge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\edge\BgEdgeDetect.h">
+      <Filter>Header Files\edge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\edge\BgEdgeList.h">
+      <Filter>Header Files\edge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\edge\BgImage.h">
+      <Filter>Header Files\edge</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
