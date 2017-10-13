@@ -24,6 +24,10 @@ The Visual C++ solution consists of five projects:
 - Three small programs demonstrating how to use JSON Spirit
 
 
+## Source
+
+The original location of this code is: https://www.codeproject.com/Articles/20027/JSON-Spirit-A-C-JSON-Parser-Generator-Implemented
+
 
 # License
 
