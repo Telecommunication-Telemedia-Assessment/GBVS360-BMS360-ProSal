@@ -165,7 +165,7 @@ int main(int argc, char **argv) {
 		builder.setProcessedVideo(vm["select-video"].as< std::string >());
 	}
 
-	if(vm.count("select-video")) {
+	if(vm.count("invert-yaw-axis")) {
 		builder.setInverseYawAxis(true);
 	}
 
