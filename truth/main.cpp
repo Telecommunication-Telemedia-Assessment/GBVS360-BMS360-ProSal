@@ -62,6 +62,7 @@ int main(int argc, char **argv) {
 		("overlay-type", po::value< int >(), "select the type of overlay: 1) red mask, 2) show only salient regions")
 		("skip-existing", "Generate only the missing saliency maps")
 		("select-video", po::value< std::string >(), "Generate the saliency map only for the requested video.")	
+		("invert-yaw-axis", "Inverse the direction of a positive yaw value.")
 	;
 
     
@@ -164,6 +165,9 @@ int main(int argc, char **argv) {
 		builder.setProcessedVideo(vm["select-video"].as< std::string >());
 	}
 
+	if(vm.count("select-video")) {
+		builder.setInverseYawAxis(true);
+	}
 
 
 	// ----------------------------------------------------------------------------------------------------------------

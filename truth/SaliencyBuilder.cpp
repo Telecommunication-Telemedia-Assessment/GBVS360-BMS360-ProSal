@@ -48,6 +48,7 @@ SaliencyBuilder::SaliencyBuilder(int rows, int cols, int framerate, float fov) {
     m_fourcc = "X264";
     m_show = false;
     m_mergeHMDs = false;
+    m_inverseYawAxis = false;
     m_nbFrames = -1;
 	m_videoOverlayType = 1;
 }
@@ -405,7 +406,10 @@ void SaliencyBuilder::projectionJob(std::vector<Job>& jobs, const cv::Mat& gauss
         if(taskFound) {
             jobs[taskId].m_frame = cv::Mat(m_rows, m_cols, CV_32FC1, cv::Scalar(0.f));
 
-            rectilinearToEquirectangular(gauss, jobs[taskId].m_frame, 180.f - jobs[taskId].m_yaw, jobs[taskId].m_pitch, jobs[taskId].m_roll);
+            if(m_inverseYawAxis)
+                rectilinearToEquirectangular(gauss, jobs[taskId].m_frame, 180.f - jobs[taskId].m_yaw, jobs[taskId].m_pitch, jobs[taskId].m_roll);
+            else
+                rectilinearToEquirectangular(gauss, jobs[taskId].m_frame, jobs[taskId].m_yaw, jobs[taskId].m_pitch, jobs[taskId].m_roll);
         }
     }
 
