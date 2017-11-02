@@ -409,7 +409,7 @@ void SaliencyBuilder::projectionJob(std::vector<Job>& jobs, const cv::Mat& gauss
             if(m_inverseYawAxis)
                 rectilinearToEquirectangular(gauss, jobs[taskId].m_frame, 180.f - jobs[taskId].m_yaw, jobs[taskId].m_pitch, jobs[taskId].m_roll);
             else
-                rectilinearToEquirectangular(gauss, jobs[taskId].m_frame, jobs[taskId].m_yaw, jobs[taskId].m_pitch, jobs[taskId].m_roll);
+                rectilinearToEquirectangular(gauss, jobs[taskId].m_frame, 180.f + jobs[taskId].m_yaw, jobs[taskId].m_pitch, jobs[taskId].m_roll);
         }
     }
 
