@@ -25,7 +25,7 @@ The release with a version higher than 1.0 were the result of work performed aft
 
 To compile the project, only two dependencies are required: 
 
-   - fftw (optional: it adds support of the extention of GBVS using CSF) 
+   - fftw (optional: it adds support of a CSF extention to GBVS) 
 
    - boost (>= 1.63)
 
