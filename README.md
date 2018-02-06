@@ -45,7 +45,7 @@ Unzip the folder Library next to the clone of the repository. Then, open the vis
 
 # Citation
 
-The journal paper related to this work have been accepted for publication. In case you use this work, please cite:
+The journal paper related to this work has been accepted for publication. In case you use this work, please cite:
 
 ```
 @article{lebreton2018GBVS360,
