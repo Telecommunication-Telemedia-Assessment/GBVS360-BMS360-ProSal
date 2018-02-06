@@ -5,7 +5,7 @@ In this project, it is studied how existing visual saliency models designed for 
 
 # Context 
 
-This project was initially intiated to address the ICME2017 Grand Challenge on Visual attention for 360 images. Two track of this challenged are considered: 
+This project was intiated to address the ICME2017 Grand Challenge on Visual attention for 360 images. Two track of this challenged are considered: 
 
 - The prediction of saliency maps obtained from Head motion data (on still images)
 
