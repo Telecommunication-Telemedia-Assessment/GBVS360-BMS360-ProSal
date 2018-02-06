@@ -5,22 +5,17 @@ In this project, it is studied how existing visual saliency models designed for 
 
 # Context 
 
-This project was initially created to address the ICME2017 Grand Challenge on Visual attention for 360 images. 
+This project was initially intiated to address the ICME2017 Grand Challenge on Visual attention for 360 images. Two track of this challenged are considered: 
 
-The goals of this grand challenges were as follows: Understanding how users watch a 360° image and analyzing how they scan through the content with a combination of head and eye movement, is necessary to develop appropriate rendering devices and also create good VR/AR content for consumers. Good visual attention modeling is a key factor in that perspective that helps enhance the overall Quality of Experience (QoE). Although a huge number of algorithms have been developed in recent years to gauge visual attention in flat-2D images and videos and also a benchmarking platform (saliency.mit.edu) where users can submit and assess their results, attention studies in 360o scenarios are absent. The goal of this challenge is to therefore two-fold:
+- The prediction of saliency maps obtained from Head motion data (on still images)
 
-   - to produce a dataset to ensure easy and precise reproducibility of results for future saliency / scan-path computational models in line with the principles of Reproducible and Sustainable research from IEEE.
-
-   - to set a first baseline for the taxonomy of several types of visual attention models (saliency models, importance models, saccadic models) and the correct methodology and ground-truth data to test each of them.
-
-
-In the first stage, we present a dataset of sixty 360o images along with the associated head and eye-tracking data. An additional 20 images will be provided without any tracking data. As all images are covered under the Creative Commons copyright, you are free to reuse and redistribute the content for research purposes along with relevant citations and links to our hosting website and paper which provides appropriate credits to the photographers. We additionally provide 3 software: VR content playback module, a benchmarking tool and saliency/ scan-path generator for use by the participants.
+- The prediction of saliency maps obtained from Head and Eye motion data (on still images)
 
 
 
 # Binaries
 
-In the release section of GitHub, different set of binaries can be found. The version 1.0 correspond to the models submitted to the ICME2017 Grand Challenge. These models were ranked as first at addressing Head motion-based saliency maps out of 13 submissions. And was ranked and was ranked 6th (5.75) out of 16 submissions when Head/Eye motion-based saliency maps are addressed. 
+In the release section of GitHub, different set of binaries can be found. The version 1.0 correspond to the models submitted to the ICME2017 Grand Challenge. These models were ranked as 1st at addressing Head motion-based saliency maps out of 13 submissions. And was ranked and was ranked 6th (5.75) out of 16 submissions when Head/Eye motion-based saliency maps are addressed. 
 
 The release with a version higher than 1.0 were the result of work performed after the end of the competition. Version 2.0 includes the BMS360 model.
 
@@ -29,6 +24,8 @@ The release with a version higher than 1.0 were the result of work performed aft
 # Build from source
 
 To compile the project, only two dependencies are required: 
+
+   - fftw (optional: it adds support of the extention of GBVS using CSF) 
 
    - boost (>= 1.63)
 
@@ -48,7 +45,19 @@ Unzip the folder Library next to the clone of the repository. Then, open the vis
 
 # Citation
 
-The paper related to this work have been submitted to the journal: Journal Signal Processing: Image Communication, It is entitled "GBVS360, BMS360, ProSal: Extending existing saliency prediction models from 2D to omnidirectional images", and the authors are: Pierre Lebreton (Zhejiang University) and Alexander Raake (TU Ilmenau). More details on the citation will be added with the progress of the submissions of this work.  
+The journal paper related to this work have been accepted for publication. In case you use this work, please cite:
+
+@article{lebreton2018GBVS360,
+  title={GBVS360, BMS360, ProSal: Extending existing saliency prediction models from 2D to omnidirectional images},
+  author={Lebreton, Pierre and Raake, Alexander},
+  journal={Signal Processing: Image Communication},
+  volume={??},
+  pages={??--??},
+  year={2018},
+  publisher={Elsevier}
+}
+
+
 
 
 # License
