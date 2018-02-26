@@ -52,7 +52,19 @@ FEATURE_SRC = $(wildcard test/feature-test.cpp)
 FEATURE_OBJS = $(FEATURE_SRC:.cpp=.o)
 FEATURE = bin/feature
 
-all : $(AOUT) $(PRIOR) $(TESTS)
+all : libs $(AOUT) $(PRIOR) $(TESTS)
+
+libs:
+	$(MAKE) -C lib/libgnomonic
+	$(MAKE) -C lib/libbms
+	$(MAKE) -C lib/liblinper
+	$(MAKE) -C lib/libmeanshift
+	$(MAKE) -C lib/libhmd
+	$(MAKE) -C lib/libgbvs
+	$(MAKE) -C lib/libjsonspirit
+	$(MAKE) -C truth
+	$(MAKE) -C gnomonic
+
 tests: $(TESTS)
 analysis: $(ANALYSIS)
 prior: $(PRIOR)
@@ -64,8 +76,18 @@ bin/salient : $(OBJS)
 	$(CC) $(CFLAGS) -o $@ -c $<
 clean :
 	@rm Salient360/*.o libgbvs360/*.o 
+
 cleaner : clean
 	@rm $(AOUT)
+	$(MAKE) -C lib/libgnomonic clean
+	$(MAKE) -C lib/libbms clean
+	$(MAKE) -C lib/liblinper clean
+	$(MAKE) -C lib/libmeanshift clean
+	$(MAKE) -C lib/libhmd clean
+	$(MAKE) -C lib/libgbvs clean
+	$(MAKE) -C lib/libjsonspirit clean
+	$(MAKE) -C truth clean
+	$(MAKE) -C gnomonic clean
 
 
 bin/bms : $(TESTS_OBJS)

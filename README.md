@@ -34,7 +34,7 @@ To compile the project, only two dependencies are required:
 
 ## UNIX system
 
-run the script "build.sh".  
+run  `make`.  
 
 ## Windows: 
 

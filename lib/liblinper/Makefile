@@ -4,12 +4,12 @@ CLFLAGS = rvs
 
 CFLAGS = -W -Wall -g \
 			-I/usr/local/opt/boost/include \
-			-I/usr/local/opt/opencv3/include \
+			-I/usr/local/opt/opencv/include \
 			-Ijlinkage/include \
 			-Ilsd/src
 
 LDFLAGS = -L/usr/local/opt/boost/lib \
-			-L/usr/local/opt/opencv3/lib \
+			-L/usr/local/opt/opencv/lib \
 			-Lbin \
 			-lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_imgcodecs \
 			-lboost_program_options -lboost_exception -lboost_thread-mt -lboost_system \

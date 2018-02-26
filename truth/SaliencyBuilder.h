@@ -65,7 +65,8 @@ class SaliencyBuilder {
     bool    m_mergeHMDs;
 	int		m_videoOverlayType;
     bool    m_skipExisting;
-    bool    m_inverseYawAxis;
+    bool    m_inversePitchAxis;
+    bool    m_fixationMaps;
     std::string m_processedVideo;
     std::string m_filterHMD;
     std::string m_videoOverlay;
@@ -98,7 +99,8 @@ public:
 	inline void setVideoOveralyType(int type)				{ m_videoOverlayType = type;  }
     inline void setSkipExisting (bool skip)                 { m_skipExisting = skip; }
     inline void setProcessedVideo(const std::string& vid)   { m_processedVideo = vid; }
-    inline void setInverseYawAxis(bool value)               { m_inverseYawAxis = value; }
+    inline void setInversePitchAxis(bool value)             { m_inversePitchAxis = value; }
+    inline void setFixationMaps (bool value)                { m_fixationMaps = value; }
 
 
 

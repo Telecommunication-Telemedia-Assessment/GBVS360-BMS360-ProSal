@@ -48,7 +48,8 @@ SaliencyBuilder::SaliencyBuilder(int rows, int cols, int framerate, float fov) {
     m_fourcc = "X264";
     m_show = false;
     m_mergeHMDs = false;
-    m_inverseYawAxis = false;
+    m_inversePitchAxis = false;
+    m_fixationMaps = false;
     m_nbFrames = -1;
 	m_videoOverlayType = 1;
 }
@@ -262,40 +263,85 @@ void SaliencyBuilder::applyLog(const std::vector<Record>& records) {
             }
         }
 
-        // do the processing in m_threads threads
-        boost::thread_group g;
-        for(int i = 0 ; i < m_threads ; ++i) {
-            g.create_thread(boost::bind(&SaliencyBuilder::projectionJob, this, boost::ref(jobs), boost::ref(gauss)));
-        }
-        g.join_all();
 
-
-        // finally, we merge all the equirectangular images (one for each fixation)
+        // Output saliency map
         cv::Mat salMap(m_rows, m_cols, CV_32FC1, cv::Scalar(0.f));
-        for( Job &job : jobs) {
-            salMap += job.m_frame;
+
+
+        if(m_fixationMaps) {
+
+            // --------------------------------------------------------------------------------------------------------
+            // If we aim at generating a fixation map
+
+            
+            for( Job &job : jobs) {
+                float pitch = -job.m_pitch;
+                
+                if(m_inversePitchAxis) pitch = -pitch;
+
+                while(pitch < -90.f)  pitch += 180.f;
+                while(pitch >  90.f) pitch -= 180.f;
+
+                pitch = (pitch + 90.f) / 180.f;
+                int y = static_cast<int>(pitch*salMap.rows);
+                if(y >= salMap.rows) y = salMap.rows - 1;
+                if(y < 0) y = 0;
+
+
+                float yaw = job.m_yaw;
+                while(yaw < -180.f)  pitch += 360.f;
+                while(yaw >  180.f) pitch  -= 360.f;
+                yaw = (yaw + 180.f) / 360.f;
+
+                int x = static_cast<int>(yaw*salMap.cols);
+                if(x >= salMap.cols) x = salMap.cols - 1;
+                if(x < 0) x = 0;
+
+                salMap.at<float>(y, x) = 1.0f;
+            }
+
+
+        } else {
+
+            // --------------------------------------------------------------------------------------------------------
+            // If we aim at generating a saliency map
+
+            // do the processing in m_threads threads
+            boost::thread_group g;
+            for(int i = 0 ; i < m_threads ; ++i) {
+                g.create_thread(boost::bind(&SaliencyBuilder::projectionJob, this, boost::ref(jobs), boost::ref(gauss)));
+            }
+            g.join_all();
+
+
+            // finally, we merge all the equirectangular images (one for each fixation)
+            for( Job &job : jobs) {
+                salMap += job.m_frame;
+            }
+
+            cv::normalize(salMap, salMap, 1, 0, cv::NORM_MINMAX);
+
+
+
+            // --------------------------------------------------------------------------------------------------------
+            // Add a temporal smoothing: the frame N is averaged with frames N-1, N-2, N3, N-4 with a Gaussian weighting
+
+            m_temporalStack.push_back(salMap.clone());
+            if(m_temporalStack.size() > static_cast<unsigned int>(m_framerate/5)) {
+                m_temporalStack.pop_front();
+            }
+
+            auto it = m_temporalStack.rbegin();
+            ++it;
+            for(int depth = 1 ; it != m_temporalStack.rend() ; ++it) {
+                salMap += (*it) * exp(-(depth*depth)/(2*5));
+                ++depth;
+            }
+
+            cv::normalize(salMap, salMap, 1, 0, cv::NORM_MINMAX);
+
         }
 
-        cv::normalize(salMap, salMap, 1, 0, cv::NORM_MINMAX);
-
-
-
-        // --------------------------------------------------------------------------------------------------------
-        // Add a temporal smoothing: the frame N is averaged with frames N-1, N-2, N3, N-4 with a Gaussian weighting
-
-        m_temporalStack.push_back(salMap.clone());
-        if(m_temporalStack.size() > static_cast<unsigned int>(m_framerate/5)) {
-            m_temporalStack.pop_front();
-        }
-
-        auto it = m_temporalStack.rbegin();
-        ++it;
-        for(int depth = 1 ; it != m_temporalStack.rend() ; ++it) {
-            salMap += (*it) * exp(-(depth*depth)/(2*5));
-            ++depth;
-        }
-
-        cv::normalize(salMap, salMap, 1, 0, cv::NORM_MINMAX);
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -406,10 +452,10 @@ void SaliencyBuilder::projectionJob(std::vector<Job>& jobs, const cv::Mat& gauss
         if(taskFound) {
             jobs[taskId].m_frame = cv::Mat(m_rows, m_cols, CV_32FC1, cv::Scalar(0.f));
 
-            if(m_inverseYawAxis)
-                rectilinearToEquirectangular(gauss, jobs[taskId].m_frame, 180.f - jobs[taskId].m_yaw, jobs[taskId].m_pitch, jobs[taskId].m_roll);
-            else
+            if(m_inversePitchAxis)
                 rectilinearToEquirectangular(gauss, jobs[taskId].m_frame, 180.f + jobs[taskId].m_yaw, jobs[taskId].m_pitch, jobs[taskId].m_roll);
+            else
+                rectilinearToEquirectangular(gauss, jobs[taskId].m_frame, 180.f + jobs[taskId].m_yaw, -jobs[taskId].m_pitch, jobs[taskId].m_roll);
         }
     }
 
