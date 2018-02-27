@@ -52,6 +52,7 @@ SaliencyBuilder::SaliencyBuilder(int rows, int cols, int framerate, float fov) {
     m_fixationMaps = false;
     m_nbFrames = -1;
 	m_videoOverlayType = 1;
+    m_rawOutputMode = 0;
 }
 
 
@@ -153,21 +154,29 @@ void SaliencyBuilder::applyLog(const std::vector<Record>& records) {
     }
 
     cv::GaussianBlur(gauss, gauss, cv::Size(203,203), 30, 30);
-    cv::normalize(gauss, gauss, 1, 0, cv::NORM_MINMAX);
+    cv::normalize(gauss, gauss, 0, 1, cv::NORM_MINMAX);
 
 
     cv::VideoWriter outputVideo;
     cv::VideoCapture inputVideo;
     cv::Size S = cv::Size(m_cols, m_rows);
+    FILE *binFile = NULL;
 
     // --------------------------------------------------------------------------------------------------------
     // define output path
 
     std::string outputFile;
-    if(m_mergeHMDs)
-        outputFile = records[0].m_name + ".mkv";
+    std::string extension;
+
+    if(m_rawOutputMode > 0)
+        extension = ".bin";
     else
-        outputFile = records[0].m_hmd + "_" + records[0].m_name + ".mkv";
+        extension = ".mkv";
+
+    if(m_mergeHMDs)
+        outputFile = records[0].m_name + extension;
+    else
+        outputFile = records[0].m_hmd + "_" + records[0].m_name + extension;
 
 
     if(m_skipExisting) {
@@ -195,11 +204,17 @@ void SaliencyBuilder::applyLog(const std::vector<Record>& records) {
     // --------------------------------------------------------------------------------------------------------
     // handle output video
 
+    if(m_rawOutputMode == 0) {
+        outputVideo.open(outputFile, CV_FOURCC(m_fourcc[0], m_fourcc[1], m_fourcc[2], m_fourcc[3]), m_framerate, S, !m_videoOverlay.empty()); // !m_videoOverlay.empty() -> if there is no RGB video, we can only use a B&W output
 
-    outputVideo.open(outputFile, CV_FOURCC(m_fourcc[0], m_fourcc[1], m_fourcc[2], m_fourcc[3]), m_framerate, S, !m_videoOverlay.empty()); // !m_videoOverlay.empty() -> if there is no RGB video, we can only use a B&W output
-
-    if(!outputVideo.isOpened()) {
-        std::cerr << "Cannot write: " << (records[0].m_name + ".mkv") << std::endl;
+        if(!outputVideo.isOpened()) {
+            std::cerr << "Cannot write: " << (records[0].m_name + ".mkv") << std::endl;
+        }
+    } else {
+        binFile = fopen(outputFile.c_str(), "wb");
+        if(binFile == NULL) {
+            std::cerr << "Cannot write: " << (records[0].m_name + ".bin") << std::endl;
+        }
     }
 
 
@@ -282,22 +297,23 @@ void SaliencyBuilder::applyLog(const std::vector<Record>& records) {
                 while(pitch < -90.f)  pitch += 180.f;
                 while(pitch >  90.f) pitch -= 180.f;
 
-                pitch = (pitch + 90.f) / 180.f;
-                int y = static_cast<int>(pitch*salMap.rows);
+                pitch = pitch / 180.f;
+                int y = salMap.rows/2 + static_cast<int>(pitch*salMap.rows);
                 if(y >= salMap.rows) y = salMap.rows - 1;
                 if(y < 0) y = 0;
 
 
                 float yaw = job.m_yaw;
-                while(yaw < -180.f)  pitch += 360.f;
-                while(yaw >  180.f) pitch  -= 360.f;
-                yaw = (yaw + 180.f) / 360.f;
+                while(yaw < -180.f)  yaw += 360.f;
+                while(yaw >  180.f)  yaw  -= 360.f;
+                yaw = yaw / 360.f;
 
-                int x = static_cast<int>(yaw*salMap.cols);
+                int x = salMap.cols/2 + static_cast<int>(yaw*salMap.cols);
                 if(x >= salMap.cols) x = salMap.cols - 1;
                 if(x < 0) x = 0;
 
                 salMap.at<float>(y, x) = 1.0f;
+                
             }
 
 
@@ -319,7 +335,7 @@ void SaliencyBuilder::applyLog(const std::vector<Record>& records) {
                 salMap += job.m_frame;
             }
 
-            cv::normalize(salMap, salMap, 1, 0, cv::NORM_MINMAX);
+            cv::normalize(salMap, salMap, 0, 1, cv::NORM_MINMAX);
 
 
 
@@ -338,7 +354,7 @@ void SaliencyBuilder::applyLog(const std::vector<Record>& records) {
                 ++depth;
             }
 
-            cv::normalize(salMap, salMap, 1, 0, cv::NORM_MINMAX);
+            cv::normalize(salMap, salMap, 0, 1, cv::NORM_MINMAX);
 
         }
 
@@ -407,8 +423,12 @@ void SaliencyBuilder::applyLog(const std::vector<Record>& records) {
         // write output video
 
         if(m_videoOverlay.empty()) {
-            salMap = salMap * 255;
-            salMap.convertTo(salMap, CV_8UC1);
+
+            if(m_rawOutputMode == 0) {
+                salMap = salMap * 255;
+                salMap.convertTo(salMap, CV_8UC1);
+            }
+            
         } else {
             if(!inputVideo.isOpened()) {
                 cv::Mat colorImage(salMap.size(), CV_8UC3);
@@ -422,11 +442,31 @@ void SaliencyBuilder::applyLog(const std::vector<Record>& records) {
             }
         }
 
-        outputVideo << salMap;
+        if(m_rawOutputMode == 0) {
+            outputVideo << salMap;
+        } else {
+            switch(m_rawOutputMode) {
+                case 1: 
+                    cv::normalize(salMap, salMap, 0, 1, cv::NORM_MINMAX);
+                    salMap = salMap * 255;
+                    salMap.convertTo(salMap, CV_8UC1);
+                    fwrite(salMap.data, 1, salMap.cols * salMap.rows, binFile);
+                    break;
+
+                case 2:
+                default:
+                    fwrite(salMap.data, sizeof(float), salMap.cols * salMap.rows, binFile);
+                    break;
+            }
+        }
+        
 
         if(frame == m_nbFrames) break;
     }
 
+    if(binFile != NULL) {
+        fclose(binFile);
+    }
 
 }
 

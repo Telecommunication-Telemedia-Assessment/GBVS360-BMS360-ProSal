@@ -67,6 +67,7 @@ class SaliencyBuilder {
     bool    m_skipExisting;
     bool    m_inversePitchAxis;
     bool    m_fixationMaps;
+    int     m_rawOutputMode;
     std::string m_processedVideo;
     std::string m_filterHMD;
     std::string m_videoOverlay;
@@ -101,8 +102,7 @@ public:
     inline void setProcessedVideo(const std::string& vid)   { m_processedVideo = vid; }
     inline void setInversePitchAxis(bool value)             { m_inversePitchAxis = value; }
     inline void setFixationMaps (bool value)                { m_fixationMaps = value; }
-
-
+    inline void setRawOutputMode(int mode)                  { m_rawOutputMode = mode; }
 
 }; 
 

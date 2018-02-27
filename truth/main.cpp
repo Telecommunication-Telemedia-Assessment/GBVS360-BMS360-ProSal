@@ -64,6 +64,7 @@ int main(int argc, char **argv) {
 		("select-video", po::value< std::string >(), "Generate the saliency map only for the requested video.")	
 		("invert-pitch-axis", "Inverse the direction of a positive pitch value.")
 		("fixation-map", "Generate fixation maps instead (binary maps)")
+		("raw-output", po::value< int >(), "Write maps in a binary file. Raster scan order. Argument select bit depth (UChar:1, Float:2)")
 	;
 
     
@@ -173,6 +174,11 @@ int main(int argc, char **argv) {
 	if(vm.count("fixation-map")) {
 		builder.setFixationMaps(true);
 	}
+
+	if(vm.count("raw-output")) {
+		builder.setRawOutputMode(vm["raw-output"].as< int >());
+	}
+	
 
 
 	// ----------------------------------------------------------------------------------------------------------------
