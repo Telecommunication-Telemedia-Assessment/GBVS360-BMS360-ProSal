@@ -70,12 +70,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\..\Library\OpenCV\build\include;..\..\Library\boost_1_63_0;$(VC_IncludePath);$(WindowsSDK_IncludePath);..\lib\libbms\src;..\lib\libgbvs\src;..\lib\libgnomonic\src;..\lib\libgnomonic\lib\libinter\src;..\lib\libhmd\src;..\lib\liblinper\src</IncludePath>
-    <LibraryPath>..\..\Library\OpenCV_x64\lib\Release;..\..\Library\boost_1_63_0\stage\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>..\..\Library\opencv_gpu\include;..\..\Library\boost_1_66_0;$(VC_IncludePath);$(WindowsSDK_IncludePath);..\lib\libbms\src;..\lib\libgbvs\src;..\lib\libgnomonic\src;..\lib\libgnomonic\lib\libinter\src;..\lib\libhmd\src;..\lib\liblinper\src</IncludePath>
+    <LibraryPath>..\..\Library\opencv_gpu\x64\vc14\lib;..\..\Library\boost_1_66_0\stage\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\..\Library\OpenCV\build\include;..\..\Library\boost_1_63_0;$(VC_IncludePath);$(WindowsSDK_IncludePath);..\lib\libbms\src;..\lib\libgbvs\src;..\lib\libgnomonic\src;..\lib\libgnomonic\lib\libinter\src;..\lib\libhmd\src;..\lib\liblinper\src</IncludePath>
-    <LibraryPath>..\..\Library\OpenCV_x64\lib\Release;..\..\Library\boost_1_63_0\stage\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>..\..\Library\opencv_gpu\include;..\..\Library\boost_1_66_0;$(VC_IncludePath);$(WindowsSDK_IncludePath);..\lib\libbms\src;..\lib\libgbvs\src;..\lib\libgnomonic\src;..\lib\libgnomonic\lib\libinter\src;..\lib\libhmd\src;..\lib\liblinper\src</IncludePath>
+    <LibraryPath>..\..\Library\opencv_gpu\x64\vc14\lib;..\..\Library\boost_1_66_0\stage\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -104,7 +104,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
-      <AdditionalOptions>$(OutDir)\libbms.lib $(OutDir)\libgbvs.lib $(OutDir)\libinter.lib $(OutDir)\libgnomonic.lib $(OutDir)\libhmd.lib    $(OutDir)\liblinper.lib  $(OutDir)\libmeanshift.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>"$(OutDir)\libbms.lib" "$(OutDir)\libgbvs.lib" "$(OutDir)\libinter.lib" "$(OutDir)\libgnomonic.lib" "$(OutDir)\libhmd.lib"  "$(OutDir)\liblinper.lib"  "$(OutDir)\libmeanshift.lib" %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,7 +142,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
-      <AdditionalOptions>$(OutDir)\libbms.lib $(OutDir)\libgbvs.lib $(OutDir)\libinter.lib $(OutDir)\libgnomonic.lib $(OutDir)\libhmd.lib    $(OutDir)\liblinper.lib  $(OutDir)\libmeanshift.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>"$(OutDir)\libbms.lib" "$(OutDir)\libgbvs.lib" "$(OutDir)\libinter.lib" "$(OutDir)\libgnomonic.lib" "$(OutDir)\libhmd.lib"  "$(OutDir)\liblinper.lib"  "$(OutDir)\libmeanshift.lib" %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
