@@ -153,7 +153,7 @@ void SaliencyBuilder::applyLog(const std::vector<Record>& records) {
         }
     }
 
-    cv::GaussianBlur(gauss, gauss, cv::Size(203,203), 30, 30);
+    cv::GaussianBlur(gauss, gauss, cv::Size(203,203), 20, 20);
     cv::normalize(gauss, gauss, 0, 1, cv::NORM_MINMAX);
 
 
@@ -516,11 +516,11 @@ void SaliencyBuilder::rectilinearToEquirectangular(const cv::Mat& inputImage, cv
         ( float * ) output.data,
         output.cols,
         output.rows,
-        output.channels(),
+        1,
         ( float * ) inputImage.data,
         inputImage.cols,
         inputImage.rows,
-        inputImage.channels(),
+        1,
         azim  * ( LG_PI / 180.0 ),
         elev  * ( LG_PI / 180.0 ),
         roll  * ( LG_PI / 180.0 ),

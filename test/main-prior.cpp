@@ -622,7 +622,12 @@ int main(int argc, char **argv) {
 	// cv::waitKey();
 
 	if(!outputPath.empty()) {
-		cv::imwrite(outputPath, 255*image);
+		cv::Mat tmp;
+		cv::cvtColor(image, tmp, CV_GRAY2BGR);
+		tmp *= 255;
+		tmp.convertTo(tmp, CV_8UC3);
+		cv::imwrite(outputPath, tmp);
+		
 		return 0;
 	} else {
 		cv::imshow("with equatorial prior", image);

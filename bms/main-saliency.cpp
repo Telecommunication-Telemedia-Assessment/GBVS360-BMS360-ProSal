@@ -347,7 +347,12 @@ int main(int argc, char **argv) {
 		applyEquatorialPrior(sMap);
 
 	if(!outputPath.empty()) {
-		cv::imwrite(outputPath, 255*sMap);
+		cv::Mat tmp;
+		cv::cvtColor(sMap, tmp, CV_GRAY2BGR);
+		tmp *= 255;
+		tmp.convertTo(tmp, CV_8UC3);
+		cv::imwrite(outputPath, tmp);
+		
 	} else {
 		imshow("saliency", sMap);
 		cv::waitKey();

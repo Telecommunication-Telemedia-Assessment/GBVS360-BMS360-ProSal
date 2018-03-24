@@ -177,7 +177,12 @@ int main(int argc, char **argv) {
 
 
 	if(!outputPath.empty()) {
-		cv::imwrite(outputPath, 255* output);
+		cv::Mat tmp;
+		cv::cvtColor(output, tmp, CV_GRAY2BGR);
+		tmp *= 255;
+		tmp.convertTo(tmp, CV_8UC3);
+		cv::imwrite(outputPath, tmp);
+		
 		return 0;
 	} else {
 		cv::imshow("feature map", output);

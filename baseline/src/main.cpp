@@ -315,9 +315,14 @@ int main(int argc, char **argv) {
 	if(outImage.empty()) return 0;
 
 
-	if(!Option::outputPath.empty())
-		cv::imwrite(Option::outputPath, 255*outImage); 
-	else {
+	if(!Option::outputPath.empty()) {
+		cv::Mat tmp;
+		cv::cvtColor(outImage, tmp, CV_GRAY2BGR);
+		tmp *= 255;
+		tmp.convertTo(tmp, CV_8UC3);
+		cv::imwrite(outputPath, tmp);
+
+	} else {
 		cv::imshow("Saliency", outImage);
 		cv::waitKey();
 	}

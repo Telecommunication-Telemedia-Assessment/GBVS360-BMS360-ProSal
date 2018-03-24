@@ -270,9 +270,13 @@ int main(int argc, char **argv) {
 	}
 
 
-	if(!outputPath.empty())
-		cv::imwrite(outputPath, saliency*255);
-	else {
+	if(!outputPath.empty()) {
+		cv::Mat tmp;
+		cv::cvtColor(saliency, tmp, CV_GRAY2BGR);
+		tmp *= 255;
+		tmp.convertTo(tmp, CV_8UC3);
+		cv::imwrite(outputPath, tmp);
+	} else {
 		cv::imshow("input", inputImage);
 		cv::imshow("saliency", saliency);
 		cv::waitKey();

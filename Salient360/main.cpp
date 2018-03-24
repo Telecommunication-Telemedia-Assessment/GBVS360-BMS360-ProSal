@@ -599,9 +599,15 @@ int main(int argc, char **argv) {
 					}
 				}
 
-				if(!isBinary)
-					cv::imwrite(Option::outputPath, 255 * outImage);
-				else {
+				if(!isBinary) {
+
+					cv::Mat tmp;
+					cv::cvtColor(outImage, tmp, CV_GRAY2BGR);
+					tmp *= 255;
+					tmp.convertTo(tmp, CV_8UC3);
+					cv::imwrite(Option::outputPath, tmp);
+					
+				} else {
 					FILE *f = NULL;
 					f = fopen(Option::outputPath.c_str(), "wb");
 					if (f == NULL) return 0;
