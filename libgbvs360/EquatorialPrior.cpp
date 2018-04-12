@@ -48,14 +48,14 @@ float faceLine(const cv::Mat &image) {
 	// ------------------------------------------------------------------------------------------------
 	// init haar cascades framework
 
-	if (face_cascade.load("haarcascade_frontalface_alt.xml")) {
+	if (face_cascade.load("data/haarcascade_frontalface_alt.xml")) {
 		faceCascadeEnabled = true;
 	}
 	else {
 		std::cerr << "[I] cannot open: haarcascade_frontalface_alt.xml" << std::endl;
 	}
 
-	if (faceProfil_cascade.load("haarcascade_profileface.xml")) {
+	if (faceProfil_cascade.load("data/haarcascade_profileface.xml")) {
 		faceProfilCascadeEnabled = true;
 	}
 	else {

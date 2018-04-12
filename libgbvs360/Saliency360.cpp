@@ -45,7 +45,7 @@ Saliency360::Saliency360() {
 	blurfrac		= 0.02f;
 	salmapmaxsize 	= 60;
 	featureScaling	= 1.0f;
-	model 			= 2;
+	model 			= 1;
 	channels		= "DIO";
 	equatorialPrior = true;
 	hmdMode 		= false;

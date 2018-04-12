@@ -147,10 +147,12 @@ int main(int argc, char **argv) {
 	desc.add_options()
 		("help", "produce help message")
 		("input-file,i", po::value< std::string >(), "Input image to process.")
-		("output-file,o", po::value< std::string >(), "Output file (image or text depending on the model. See --general-model).")
+		("output-file,o", po::value< std::string >(), "Output file. Image or binary file (depending on the extension).")
 		("threads,t", po::value< int>(),"Number of threads [default]: 8")
-		("general-model", po::value< int >(), "Select the type of result from the model: [1] Head saliency maps. [2] Head/Eye saliency maps. default: 2")
+		("general-model", po::value< int >(), "Select the type of result from the model: [1] Head saliency maps. [2] Head/Eye saliency maps. default: 1")
 		("legacy-icme-2017", "Use the models submitted at the ICME2017 Grand Challenge: Salient360! Please note that the latest version of the model (without this option) outperform this former version.")
+		("target-width", po::value< int>(), "Generate a saliency map with a given width. If not set, same as source")
+		("target-height", po::value< int>(), "Generate a saliency map with a given height. If not set, same as source")
 	;
 
 #endif
@@ -487,7 +489,15 @@ int main(int argc, char **argv) {
 	}
 
 
+	int targetWidth = -1;
+	if (vm.count("target-width")) {
+		targetWidth = vm["target-width"].as< int >();
+	}
 
+	int targetHeight = -1;
+	if (vm.count("target-height")) {
+		targetHeight = vm["target-height"].as< int >();
+	}
 
 
 
@@ -546,6 +556,10 @@ int main(int argc, char **argv) {
 
 			if(saliency.empty()) return 0;
 
+			if (targetHeight != -1 && targetWidth != -1) {
+				cv::resize(saliency, saliency, cv::Size(targetWidth, targetHeight));
+			}
+
 			if(!Option::outputPath.empty()) {
 				saliency = saliency * 255;
 				saliency.convertTo(saliency, CV_8UC1);
@@ -583,6 +597,10 @@ int main(int argc, char **argv) {
 	if(!explore) {
 		
 		saliency360.estimate(inputImage, outImage);
+
+		if (targetHeight != -1 && targetWidth != -1) {
+			cv::resize(outImage, outImage, cv::Size(targetWidth, targetHeight));
+		}
 
 		// do not crash while debug
 		if(outImage.empty()) return 0;
