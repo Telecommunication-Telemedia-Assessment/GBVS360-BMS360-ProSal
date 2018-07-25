@@ -1,6 +1,6 @@
 CC = clang++
-CFLAGS = -W -Wall -g  \
-			 -I/usr/local/opt/opencv3/include \
+CFLAGS = -W -Wall -g  -std=c++14 \
+			 -I/usr/local/opt/opencv/include \
 			 -I/usr/local/opt/boost/include \
 			 -I/usr/local/opt/fftw/include \
 			 -Ilib/libgnomonic/src -Ilib/libgnomonic/lib/libinter/src \
@@ -12,7 +12,7 @@ CFLAGS = -W -Wall -g  \
 			 -Ilibgbvs360 
 
 LDFLAGS = -L/usr/local/opt/boost/lib \
-		  -L/usr/local/opt/opencv3/lib \
+		  -L/usr/local/opt/opencv/lib \
 		  -L/usr/local/opt/fftw/lib \
 		  -I/usr/local/opt/fftw/include \
 		  -Llib/libgnomonic/bin -Llib/libgnomonic/lib/libinter/bin \

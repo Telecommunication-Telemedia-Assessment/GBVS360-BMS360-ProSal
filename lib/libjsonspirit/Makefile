@@ -1,6 +1,6 @@
 CC = clang++
 CL = ar
-CFLAGS = -fPIC -O2 -W -Wall -g \
+CFLAGS = -fPIC -O2 -W -Wall -g -std=c++14 \
 			 -I/usr/local/opt/boost/include
 LDFLAGS = -L/usr/local/opt/boost/lib 
 CLFLAGS = rvs

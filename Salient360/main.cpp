@@ -535,10 +535,10 @@ int main(int argc, char **argv) {
 
 		cv::VideoWriter outputVideo;
 		if(!Option::outputPath.empty()) {
-			cv::Size S = cv::Size((int) inputVideo.get(CV_CAP_PROP_FRAME_WIDTH),    // Acquire input size
-                  (int) inputVideo.get(CV_CAP_PROP_FRAME_HEIGHT));
+			cv::Size S = cv::Size((int) inputVideo.get(cv::CAP_PROP_FRAME_WIDTH),    // Acquire input size
+                  (int) inputVideo.get(cv::CAP_PROP_FRAME_HEIGHT));
 
-			outputVideo.open(Option::outputPath, CV_FOURCC('X', '2', '6', '4'), inputVideo.get(CV_CAP_PROP_FPS), S, false);
+			outputVideo.open(Option::outputPath, cv::VideoWriter::fourcc('X', '2', '6', '4'), inputVideo.get(cv::CAP_PROP_FPS), S, false);
 
 			if(!outputVideo.isOpened()) {
 				std::cerr << "Cannot write: " << Option::outputPath << std::endl;
@@ -620,7 +620,7 @@ int main(int argc, char **argv) {
 				if(!isBinary) {
 
 					cv::Mat tmp;
-					cv::cvtColor(outImage, tmp, CV_GRAY2BGR);
+					cv::cvtColor(outImage, tmp, cv::COLOR_GRAY2BGR);
 					tmp *= 255;
 					tmp.convertTo(tmp, CV_8UC3);
 					cv::imwrite(Option::outputPath, tmp);

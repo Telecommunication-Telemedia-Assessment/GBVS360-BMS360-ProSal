@@ -1,11 +1,11 @@
 CC = clang++
 CL = ar
-CFLAGS = -fPIC -O2 -W -Wall -g \
-			 -I/usr/local/opt/opencv3/include \
+CFLAGS = -fPIC -O2 -W -Wall -g -std=c++14 \
+			 -I/usr/local/opt/opencv/include \
 			 -Isrc
 
 LDFLAGS = -L/usr/local/opt/boost/lib \
-		  -L/usr/local/opt/opencv3/lib \
+		  -L/usr/local/opt/opencv/lib \
 		  -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_imgcodecs -lopencv_videoio \
 		  -lboost_program_options -lboost_exception -lboost_thread-mt -lboost_system -lboost_regex-mt 
 

@@ -38,7 +38,7 @@
 
 float faceLine(const cv::Mat &image) {
 	cv::Mat gray;
-	cv::cvtColor(image, gray, CV_BGR2GRAY);
+	cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
 
 	cv::CascadeClassifier face_cascade;
 	cv::CascadeClassifier faceProfil_cascade;
@@ -69,7 +69,7 @@ float faceLine(const cv::Mat &image) {
 	std::list<cv::Rect> allFeatures;
 	std::vector<cv::Rect> faceFeatures;
 	if (faceCascadeEnabled)
-		face_cascade.detectMultiScale(gray, faceFeatures, 2, 2, 0 | CV_HAAR_SCALE_IMAGE, cv::Size(15, 15));
+		face_cascade.detectMultiScale(gray, faceFeatures, 2, 2, 0 | cv::CASCADE_SCALE_IMAGE, cv::Size(15, 15));
 
 	for (size_t i = 0; i < faceFeatures.size(); ++i) {
 		allFeatures.push_back(faceFeatures[i]);
@@ -77,7 +77,7 @@ float faceLine(const cv::Mat &image) {
 
 	faceFeatures.clear();
 	if (faceProfilCascadeEnabled)
-		faceProfil_cascade.detectMultiScale(gray, faceFeatures, 2, 2, 0 | CV_HAAR_SCALE_IMAGE, cv::Size(15, 15));
+		faceProfil_cascade.detectMultiScale(gray, faceFeatures, 2, 2, 0 | cv::CASCADE_SCALE_IMAGE, cv::Size(15, 15));
 
 	for (size_t i = 0; i < faceFeatures.size(); ++i) {
 		allFeatures.push_back(faceFeatures[i]);

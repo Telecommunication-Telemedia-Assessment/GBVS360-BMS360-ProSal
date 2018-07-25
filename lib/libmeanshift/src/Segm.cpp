@@ -45,11 +45,11 @@ int msseg(cv::Mat &I, float spatialBW, float rangeBW, unsigned int minArea, cv::
 	}
 
 
-	cv::cvtColor(BGR, LUV, CV_BGR2Luv);
+	cv::cvtColor(BGR, LUV, cv::COLOR_BGR2Luv);
 
 	int nbClass = segm(LUV, I, seg, 2, true, spatialBW, rangeBW, minArea, HIGH_SPEEDUP, 2, .3f, .3f);
 
-	cv::cvtColor(LUV, BGR, CV_Luv2BGR);
+	cv::cvtColor(LUV, BGR, cv::COLOR_Luv2BGR);
 
 
 	for(int i = 0 ; i < I.rows ; ++i) {
@@ -73,11 +73,11 @@ int msseg(cv::Mat &I, float spatialBW, float rangeBW, unsigned int minArea, cv::
 int msseg_f(cv::Mat &I, float spatialBW, float rangeBW, unsigned int minArea, cv::Mat &seg) {
 	cv::Mat LUV;
 
-	cv::cvtColor(I, LUV, CV_BGR2Luv);
+	cv::cvtColor(I, LUV, cv::COLOR_BGR2Luv);
 
 	int nbClass = segm(LUV, I, seg, 2, true, spatialBW, rangeBW, minArea, HIGH_SPEEDUP, 2, .3f, .3f);
 
-	cv::cvtColor(LUV, I, CV_Luv2BGR);
+	cv::cvtColor(LUV, I, cv::COLOR_Luv2BGR);
 
 	return nbClass;
 }

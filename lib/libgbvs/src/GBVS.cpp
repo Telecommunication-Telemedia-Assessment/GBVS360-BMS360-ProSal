@@ -384,7 +384,7 @@ void GBVS::graphsalinit(const std::vector<int> &map_size) {
 
 
 void GBVS::getDims(const std::vector<int> &dims, const std::vector<int> &deltas, std::vector<cv::Mat> &apyr, std::vector< std::pair<int, int> > &o_dims) const {
-	formMapPyramid(cv::Mat(dims[0], dims[1], CV_64FC1, cvScalar(1.f)), deltas, apyr, o_dims);
+	formMapPyramid(cv::Mat(dims[0], dims[1], CV_64FC1, cv::Scalar(1.f)), deltas, apyr, o_dims);
 }
 
 
@@ -472,7 +472,7 @@ void GBVS::namenodes(const std::vector< std::pair<int, int> > &dims, int &N, std
 
 	nam.resize(nmaps);
 	for(size_t i = 0 ; i < nmaps ; ++i) {
-		nam[i] = cv::Mat(dims[0].second, dims[0].first, CV_64FC1, cvScalar(1.f));
+		nam[i] = cv::Mat(dims[0].second, dims[0].first, CV_64FC1, cv::Scalar(1.f));
 	}
 
 	double curN = 0;
@@ -494,7 +494,7 @@ void GBVS::namenodes(const std::vector< std::pair<int, int> > &dims, int &N, std
 cv::Mat GBVS::makeLocationMap(const std::vector< std::pair<int, int> > &dims, const std::vector<cv::Mat> &nam, int N) const {
 	size_t nmaps = dims.size();
 
-	cv::Mat lx(N, 8195, CV_64FC1, cvScalar(0.f)); // 8195 == 2^13+3
+	cv::Mat lx(N, 8195, CV_64FC1, cv::Scalar(0.f)); // 8195 == 2^13+3
 
 	std::vector< std::vector< std::vector<int> > > px_r(nmaps);
 	std::vector< std::vector< std::vector<int> > > px_c(nmaps);
@@ -550,7 +550,7 @@ cv::Mat GBVS::makeLocationMap(const std::vector< std::pair<int, int> > &dims, co
 		}
 	}
 
-	cv::Mat lx2(N, static_cast<int>(maxL+2), CV_64FC1, cvScalar(0.f));
+	cv::Mat lx2(N, static_cast<int>(maxL+2), CV_64FC1, cv::Scalar(0.f));
 	for(int i = 0 ; i < lx2.rows ; ++i) {
 		for(int j = 0 ; j < lx2.cols ; ++j) {
 			lx2.at<double>(i,j) = lx.at<double>(i,j);
@@ -617,7 +617,7 @@ cv::Mat GBVS::connectMatrix(const std::vector< std::pair<int, int> >& dims ,
 	for(size_t i = 0 ; i < dims.size() ; ++i)
 		N += dims[i].first*dims[i].second;
 
-	cv::Mat cx(N, N, CV_64FC1, cvScalar(0.f));
+	cv::Mat cx(N, N, CV_64FC1, cv::Scalar(0.f));
 
 	std::vector<int> offsets(dims.size(),0);
 	for(size_t i = 1 ; i < offsets.size() ; ++i) {
@@ -718,7 +718,7 @@ cv::Mat GBVS::distanceMatrix(const std::vector< std::pair<int, int> >& dims,
 	for(size_t i = 0 ; i < dims.size() ; ++i)
 		N += dims[i].first*dims[i].second;
 
-	cv::Mat dx(N, N, CV_64FC1, cvScalar(0.f));
+	cv::Mat dx(N, N, CV_64FC1, cv::Scalar(0.f));
 
 	std::vector<int> offsets(dims.size(),0);
 	for(size_t i = 1 ; i < offsets.size() ; ++i) {
@@ -784,7 +784,7 @@ cv::Mat GBVS::distanceMatrix(const std::vector< std::pair<int, int> >& dims,
 
 cv::Mat GBVS::simpledistance(const std::pair<int, int>& dim, int cyclic_type) const {
 	int N = dim.first*dim.second;
-	cv::Mat d(N, N, CV_64FC1, cvScalar(0.f));
+	cv::Mat d(N, N, CV_64FC1, cv::Scalar(0.f));
 
 	#define idx(mi,mj) ((mj)*dim.first+(mi))
 
@@ -893,7 +893,7 @@ void GBVS::principalEigenvectorRaw(const cv::Mat& markovA, float tol, std::vecto
 	int D = markovA.rows;
 	double df = 1.0f;
 
-	cv::Mat v(D, 1, CV_64FC1, cvScalar(1.f/D));
+	cv::Mat v(D, 1, CV_64FC1, cv::Scalar(1.f/D));
 	cv::Mat oldv = v.clone();
 	cv::Mat oldoldv = v.clone();
 
@@ -989,7 +989,7 @@ cv::Mat GBVS::graphsalapply(const cv::Mat &A, const Frame& frame, float sigma_fr
 
 	//get a weight matrix between nodes based on distance matrix
 	double sig = sigma_frac * static_cast<double>(A.cols + A.rows)/2.f;
-	cv::Mat dw(frame.d.rows, frame.d.cols, CV_64FC1, cvScalar(0.f)); 
+	cv::Mat dw(frame.d.rows, frame.d.cols, CV_64FC1, cv::Scalar(0.f)); 
 	for(int i = 0 ; i < frame.d.rows ; ++i) {
 		for(int j = 0 ; j < frame.d.cols ; ++j) {
 			dw.at<double>(i,j) = std::exp( -1 * frame.d.at<double>(i,j) / (2 * sig*sig));
@@ -1002,7 +1002,7 @@ cv::Mat GBVS::graphsalapply(const cv::Mat &A, const Frame& frame, float sigma_fr
 
 
 	// create the state transition matrix between nodes
-	cv::Mat mm(lx.rows, lx.rows, CV_64FC1, cvScalar(0.f)); 
+	cv::Mat mm(lx.rows, lx.rows, CV_64FC1, cv::Scalar(0.f)); 
 
 	for(int iter = 0 ; iter < num_iters ; ++iter) {
 
@@ -1024,7 +1024,7 @@ cv::Mat GBVS::graphsalapply(const cv::Mat &A, const Frame& frame, float sigma_fr
 
 	
 	// arrange the nodes back into a rectangular map
-	cv::Mat result(A.rows, A.cols, CV_64FC1, cvScalar(0.f));
+	cv::Mat result(A.rows, A.cols, CV_64FC1, cv::Scalar(0.f));
 	int curindex = 0;
 	for(int jj = 0 ; jj < result.cols ; ++jj) {
 		for(int ii = 0 ; ii < result.rows ; ++ii) {
@@ -1466,7 +1466,7 @@ void GBVS::getFeatureMaps(const cv::Mat& img) {
 						fm.level = lev;
 						fm.channel = channelProcessed;
 
-						cv::Mat diff(imgL[levels[lev]-1].rows, imgL[levels[lev]-1].cols, CV_64FC1, cvScalar(0.f)); 
+						cv::Mat diff(imgL[levels[lev]-1].rows, imgL[levels[lev]-1].cols, CV_64FC1, cv::Scalar(0.f)); 
 
 						for(int i = 0 ; i < diff.rows ; ++i) {
 							for(int j = 0 ; j < diff.rows ; ++j) {
@@ -1654,7 +1654,7 @@ cv::Mat GBVS::defocusBlurMap(const cv::Mat& image) const {
 
 
 	if(image.channels() == 3 && image.type() == CV_8UC3) {
-		cv::cvtColor(image, gray, CV_BGR2GRAY);
+		cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
 	} else {
 		if(image.channels() == 1 && image.type() == CV_32FC1) {
 			gray = cv::Mat(image.rows, image.cols, CV_8UC1, cv::Scalar(0));
@@ -1710,7 +1710,7 @@ cv::Mat GBVS::faceFeaturesDectection(const cv::Mat& image) {
 
 
 	if(image.channels() == 3 && image.type() == CV_8UC3) {
-		cv::cvtColor(image, gray, CV_BGR2GRAY);
+		cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
 	} else {
 		if(image.channels() == 1 && image.type() == CV_32FC1) {
 			gray = cv::Mat(image.rows, image.cols, CV_8UC1, cv::Scalar(0));
@@ -1756,7 +1756,7 @@ cv::Mat GBVS::faceFeaturesDectection(const cv::Mat& image) {
 	cv::Mat featureMap (image.rows, image.cols, CV_64FC1, cv::Scalar(0));
 	std::vector<cv::Rect> faceFeatures;
 	if(faceCascadeEnabled)
-		face_cascade.detectMultiScale( gray, faceFeatures, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30) );
+		face_cascade.detectMultiScale( gray, faceFeatures, 1.1, 2, 0|cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30) );
 
 	if(faceFeatures.size() > 0) faceFound = true;
 
@@ -1778,7 +1778,7 @@ cv::Mat GBVS::faceFeaturesDectection(const cv::Mat& image) {
 
     faceFeatures.clear();
 	if(faceCascadeEnabled)
-		eye_cascade.detectMultiScale( gray, faceFeatures, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30) );
+		eye_cascade.detectMultiScale( gray, faceFeatures, 1.1, 2, 0|cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30) );
 
 	if(faceFeatures.size() > 0) faceFound = true;
 
@@ -2192,7 +2192,7 @@ void GBVS::sumChannels(bool normalize) {
 
 
 cv::Mat GBVS::maxNormalizeStdGBVS(const cv::Mat &map) const {
-	cv::Mat result(map.rows, map.cols, CV_64FC1, cvScalar(0.f)); 
+	cv::Mat result(map.rows, map.cols, CV_64FC1, cv::Scalar(0.f)); 
 
 	for(int i = 0 ; i < map.rows ; ++i) {
 		for(int j = 0 ; j < map.cols ; ++i) {
@@ -2270,7 +2270,7 @@ void GBVS::blurMasterMap(bool normalize) {
 
 float GBVS::faceLine(const cv::Mat &image) const {
 	cv::Mat gray;
-	cv::cvtColor(image, gray, CV_BGR2GRAY);
+	cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
 
 	cv::CascadeClassifier face_cascade;
 	cv::CascadeClassifier faceProfil_cascade;
@@ -2299,7 +2299,7 @@ float GBVS::faceLine(const cv::Mat &image) const {
 	std::list<cv::Rect> allFeatures;
 	std::vector<cv::Rect> faceFeatures;
 	if(faceCascadeEnabled)
-		face_cascade.detectMultiScale( gray, faceFeatures, 2, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(15, 15) );
+		face_cascade.detectMultiScale( gray, faceFeatures, 2, 2, 0|cv::CASCADE_SCALE_IMAGE, cv::Size(15, 15) );
 
 	for(size_t i = 0 ; i < faceFeatures.size() ; ++i) {
 		allFeatures.push_back(faceFeatures[i]);
@@ -2307,7 +2307,7 @@ float GBVS::faceLine(const cv::Mat &image) const {
 
 	faceFeatures.clear();
 	if(faceProfilCascadeEnabled)
-		faceProfil_cascade.detectMultiScale( gray, faceFeatures, 2, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(15, 15) );
+		faceProfil_cascade.detectMultiScale( gray, faceFeatures, 2, 2, 0|cv::CASCADE_SCALE_IMAGE, cv::Size(15, 15) );
 
 	for(size_t i = 0 ; i < faceFeatures.size() ; ++i) {
 		allFeatures.push_back(faceFeatures[i]);
@@ -3022,7 +3022,7 @@ cv::Mat GBVS::applyCSF(const cv::Mat& img1) {
 
 
 	cv::Mat imgLab(img1.rows, img1.cols, CV_32FC3, img1.channels());
-	cvtColor(imgFloat, imgLab, CV_BGR2Lab);
+	cvtColor(imgFloat, imgLab, cv::COLOR_BGR2Lab);
 
 
 	cv::Mat csf = getCSF(imgLab, *forward, *backward);
@@ -3209,7 +3209,7 @@ cv::Mat GBVS::applyCSF(const cv::Mat& img1) {
 
 
 	cv::Mat imgLab(img1.rows, img1.cols, CV_32FC3, img1.channels());
-	cvtColor(imgFloat, imgLab, CV_BGR2Lab);
+	cvtColor(imgFloat, imgLab, cv::COLOR_BGR2Lab);
 
 
 	cv::Mat result(img1.rows, img1.cols, CV_64FC1, img1.channels());

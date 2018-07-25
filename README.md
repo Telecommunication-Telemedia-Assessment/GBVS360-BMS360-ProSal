@@ -60,6 +60,24 @@ The journal paper related to this work has been accepted for publication. In cas
 ```
 
 
+For the evaluation scripts used in this study, please refer and cite:
+
+```
+@article{Gutierrez2018Toolbox, 
+  title={Toolbox and Dataset for the Development of Saliency and Scanpath Models for Omnidirectional / 360{$^{\circ}$} Still Images}, 
+  author={Guti{\'e}rrez, Jes{\'u}s and David, Erwan and Rai, Yashas and Le Callet, Patrick 
+}, 
+  journal={Signal Processing: Image Communication}, 
+  volume={??}, 
+  pages={??--??}, 
+  year={2018}, 
+  publisher={Elsevier} 
+}
+```
+
+
+
+
 
 # License
 

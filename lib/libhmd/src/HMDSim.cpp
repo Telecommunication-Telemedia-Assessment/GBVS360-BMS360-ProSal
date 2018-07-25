@@ -100,7 +100,7 @@ void HMDSim::applyFilter(const cv::Mat& input, cv::Mat& result) {
     cv::Mat paddedInput(static_cast<int>(std::ceil(static_cast<float>(input.rows) / windowH)) * windowH, 
                         static_cast<int>(std::ceil(static_cast<float>(input.cols) / windowW)) * windowW,
                         CV_32FC3,
-                        cvScalar(0,0,0));
+                        cv::Scalar(0,0,0));
 
     for(int i = 0 ; i < result.rows ; ++i) {
         for(int j = 0 ; j < result.cols ; ++j) {

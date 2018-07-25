@@ -114,7 +114,7 @@ float  horizonLine(cv::Mat &image) {
 	std::vector<float> x, y;
 
 	cv::Mat gray;
-	cv::cvtColor(image, gray, CV_BGR2GRAY);
+	cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
 
 	cv::Mat edges;
 	cv::Canny(gray, edges, 110, 220);
@@ -198,7 +198,7 @@ std::vector< std::pair<float, float> >  extractVP(const cv::Mat &image) {
 	if(image.empty()) return std::vector< std::pair<float, float> >();
 
 	cv::Mat gray;
-	cv::cvtColor(image, gray, CV_BGR2GRAY);
+	cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
 	cv::Mat grayF;
 	gray.convertTo(grayF, CV_32FC1);
 

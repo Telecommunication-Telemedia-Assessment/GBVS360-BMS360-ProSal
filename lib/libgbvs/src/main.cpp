@@ -272,7 +272,7 @@ int main(int argc, char **argv) {
 
 	if(!outputPath.empty()) {
 		cv::Mat tmp;
-		cv::cvtColor(saliency, tmp, CV_GRAY2BGR);
+		cv::cvtColor(saliency, tmp, cv::COLOR_GRAY2BGR);
 		tmp *= 255;
 		tmp.convertTo(tmp, CV_8UC3);
 		cv::imwrite(outputPath, tmp);

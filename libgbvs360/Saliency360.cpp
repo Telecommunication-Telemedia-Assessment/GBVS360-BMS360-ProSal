@@ -218,7 +218,7 @@ void Saliency360::computeScanPath(const cv::Mat &input, cv::Mat &output, bool no
 
 		// if it is a BGR image, convert it.
 		if (salMap.channels() == 3 && salMap.type() == CV_8UC3) {
-			cv::cvtColor(salMap, salMap, CV_BGR2GRAY);
+			cv::cvtColor(salMap, salMap, cv::COLOR_BGR2GRAY);
 			salMap.convertTo(salMap, CV_32FC1);
 			salMap /= 255;
 		}

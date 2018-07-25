@@ -2,15 +2,15 @@ CC = clang++
 CL = ar
 CLFLAGS = rvs
 
-CFLAGS = -W -Wall -g \
-			 -I/usr/local/opt/opencv3/include \
+CFLAGS = -W -Wall -g -std=c++14 \
+			 -I/usr/local/opt/opencv/include \
 			 -I/usr/local/opt/boost/include \
 			 -I/usr/local/opt/fftw/include \
 			 -I../liblinper/src \
 			 -I../libmeanshift/src 
 
 LDFLAGS = -L/usr/local/opt/boost/lib \
-		  -L/usr/local/opt/opencv3/lib \
+		  -L/usr/local/opt/opencv/lib \
 		  -L/usr/local/opt/fftw/lib \
           -I/usr/local/opt/fftw/include \
           -L../liblinper/bin \

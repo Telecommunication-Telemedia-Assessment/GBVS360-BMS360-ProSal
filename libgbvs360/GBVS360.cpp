@@ -228,7 +228,7 @@ void GBVS360::scanPath(const cv::Mat& imgBGR, cv::Mat &out, bool inputSaliencyMa
 	if(inputSaliencyMap) {
 		saliency = imgBGR.clone();
 		if(imgBGR.channels() == 3 && imgBGR.type() == CV_8UC3) {
-			cv::cvtColor(saliency, saliency, CV_BGR2GRAY);
+			cv::cvtColor(saliency, saliency, cv::COLOR_BGR2GRAY);
 			saliency.convertTo(saliency, CV_64FC1);
 			saliency /= 255;
 		} else {
@@ -260,7 +260,7 @@ void GBVS360::scanPath(const cv::Mat& imgBGR, cv::Mat &out, bool inputSaliencyMa
 	arrangeLinear(apyr , dims, AL);
 
 	// create the state transition matrix between nodes
-	cv::Mat mm(lx.rows, lx.rows, CV_64FC1, cvScalar(0.f)); 
+	cv::Mat mm(lx.rows, lx.rows, CV_64FC1, cv::Scalar(0.f)); 
 
 	// assign edge weights based on distances between nodes and algtype
 	
@@ -289,7 +289,7 @@ void GBVS360::scanPath(const cv::Mat& imgBGR, cv::Mat &out, bool inputSaliencyMa
 
 #endif
 	
-	out = cv::Mat(Option::numberFixations * Option::experimentRepppetition, 4, CV_32FC1, cvScalar(0.f));
+	out = cv::Mat(Option::numberFixations * Option::experimentRepppetition, 4, CV_32FC1, cv::Scalar(0.f));
 	for(int i = 0 ; i < Option::experimentRepppetition ; ++i) {
 		int initPosition = static_cast<int>((i * static_cast<float>(master_map.cols) / static_cast<float>(Option::experimentRepppetition)) * master_map.rows + master_map.rows / 2);
 		cv::Mat result = runScanPath(saliency, imgBGR, groundTruthFixations, lx, mm, initPosition);
@@ -337,7 +337,7 @@ cv::Mat GBVS360::runScanPath(const cv::Mat& saliency, const cv::Mat& imgBGR, con
 cv::Mat GBVS360::runScanPath(const cv::Mat& , const cv::Mat& imgBGR, const std::vector<FixationOption>& , const cv::Mat &lx, const cv::Mat &mm, int initPosition) {
 #endif
 
-	cv::Mat out = cv::Mat(Option::numberFixations, 4, CV_32FC1, cvScalar(0.f));
+	cv::Mat out = cv::Mat(Option::numberFixations, 4, CV_32FC1, cv::Scalar(0.f));
 
 	// start from the center
 	int position = initPosition;
@@ -1130,7 +1130,7 @@ cv::Mat GBVS360::simpledistance	(const std::pair<int, int>& dim, int ) const {
 	return Option::distScaling * GBVS::simpledistance(dim, 0);
 	
 	int N = dim.first*dim.second;
-	cv::Mat d(N, N, CV_64FC1, cvScalar(0.f));
+	cv::Mat d(N, N, CV_64FC1, cv::Scalar(0.f));
 
 	double l0 = static_cast<float>(dim.second)/2;
 	double p0 = static_cast<float>(dim.first)/2;

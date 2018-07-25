@@ -2,7 +2,7 @@ CC = clang++
 CL = ar
 CLFLAGS = rvs
 
-CFLAGS = -W -Wall -g \
+CFLAGS = -W -Wall -g -std=c++14  \
 			-I/usr/local/opt/boost/include \
 			-I/usr/local/opt/opencv/include \
 			-Ijlinkage/include \
