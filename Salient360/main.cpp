@@ -151,8 +151,9 @@ int main(int argc, char **argv) {
 		("threads,t", po::value< int>(),"Number of threads [default]: 8")
 		("general-model", po::value< int >(), "Select the type of result from the model: [1] Head saliency maps. [2] Head/Eye saliency maps. default: 1")
 		("legacy-icme-2017", "Use the models submitted at the ICME2017 Grand Challenge: Salient360! Please note that the latest version of the model (without this option) outperform this former version.")
-		("target-width", po::value< int>(), "Generate a saliency map with a given width. If not set, same as source")
-		("target-height", po::value< int>(), "Generate a saliency map with a given height. If not set, same as source")
+		("target-width", po::value< int >(), "Choose the width of the output saliency map. -1 for same as source. Default [2048]")
+		("target-height", po::value< int >(), "Choose the height of the output saliency map. -1 for same as source. Default [1024]")
+		("erosion-kernel", po::value< int >(), "Set a post-process erosion kernel. 0 disable it. Default [32]")
 	;
 
 #endif
@@ -176,6 +177,7 @@ int main(int argc, char **argv) {
 		std::cout << "--------------------------------------------------------------------------------\n";
 		std::cout << " Contact for this program:\n";
 		std::cout << "\tPierre Lebreton, Zhejiang University, China, lebreton.pier@gmail.com\n";
+		std::cout << "\tStephan Fremerey, TU Ilmenau, Germany, stephan.fremerey@tu-ilmenau.de\n";
 		std::cout << "\tAlexander Raake, TU Ilmenau, Germany, alexander.raake@tu-ilmenau.de\n";
 		std::cout << "--------------------------------------------------------------------------------\n";
 		std::cout << "\n";
@@ -489,14 +491,19 @@ int main(int argc, char **argv) {
 	}
 
 
-	int targetWidth = -1;
+	int targetWidth = 2048;
 	if (vm.count("target-width")) {
 		targetWidth = vm["target-width"].as< int >();
 	}
 
-	int targetHeight = -1;
+	int targetHeight = 1024;
 	if (vm.count("target-height")) {
 		targetHeight = vm["target-height"].as< int >();
+	}
+
+	int erosion_kernel = 32;
+	if(vm.count("erosion-kernel")) {
+		erosion_kernel = vm["erosion-kernel"].as< int >(); 
 	}
 
 
@@ -556,6 +563,12 @@ int main(int argc, char **argv) {
 
 			if(saliency.empty()) return 0;
 
+			// For the sake of having the icme2017 models which reproduce the same results as in 2017... 
+			if(!vm.count("legacy-icme-2017") && erosion_kernel > 0) {
+				cv::resize(saliency, saliency, cv::Size(2048, 1024));
+				erode(saliency, saliency, cv::Mat(), cv::Point(-1, -1), 31);
+			}
+
 			if (targetHeight != -1 && targetWidth != -1) {
 				cv::resize(saliency, saliency, cv::Size(targetWidth, targetHeight));
 			}
@@ -598,12 +611,18 @@ int main(int argc, char **argv) {
 		
 		saliency360.estimate(inputImage, outImage);
 
+		// do not crash while debug
+		if(outImage.empty()) return 0;
+
+		// For the sake of having the icme2017 models which reproduce the same results as in 2017... 
+		if(!vm.count("legacy-icme-2017") && erosion_kernel > 0) {
+			cv::resize(outImage, outImage, cv::Size(2048, 1024));
+			erode(outImage, outImage, cv::Mat(), cv::Point(-1, -1), 31);
+		}
+
 		if (targetHeight != -1 && targetWidth != -1) {
 			cv::resize(outImage, outImage, cv::Size(targetWidth, targetHeight));
 		}
-
-		// do not crash while debug
-		if(outImage.empty()) return 0;
 
 		// if the result is a saliency map, show or write the image
 		if(saliency360.model != 3) {
