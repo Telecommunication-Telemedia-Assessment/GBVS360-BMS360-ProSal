@@ -1,6 +1,6 @@
 CC = clang++
-CFLAGS = -W -Wall -g  \
-			 -I/usr/local/opt/opencv3/include \
+CFLAGS = -W -Wall -g  -std=c++14 \
+			 -I/usr/local/opt/opencv/include \
 			 -I/usr/local/opt/boost/include \
 			 -I../lib/libgnomonic/src -I../lib/libgnomonic/lib/libinter/src \
 			 -I../lib/libjsonspirit/src \
@@ -8,7 +8,7 @@ CFLAGS = -W -Wall -g  \
 			 -std=c++11
 
 LDFLAGS = -L/usr/local/opt/boost/lib \
-		  -L/usr/local/opt/opencv3/lib \
+		  -L/usr/local/opt/opencv/lib \
 		  -L../lib/libgnomonic/bin -L../lib/libgnomonic/lib/libinter/bin \
 		  -L../lib/libjsonspirit/bin \
 		  -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_imgcodecs -lopencv_videoio \

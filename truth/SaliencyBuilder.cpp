@@ -205,7 +205,7 @@ void SaliencyBuilder::applyLog(const std::vector<Record>& records) {
     // handle output video
 
     if(m_rawOutputMode == 0) {
-        outputVideo.open(outputFile, CV_FOURCC(m_fourcc[0], m_fourcc[1], m_fourcc[2], m_fourcc[3]), m_framerate, S, !m_videoOverlay.empty()); // !m_videoOverlay.empty() -> if there is no RGB video, we can only use a B&W output
+        outputVideo.open(outputFile, cv::VideoWriter::fourcc(m_fourcc[0], m_fourcc[1], m_fourcc[2], m_fourcc[3]), m_framerate, S, !m_videoOverlay.empty()); // !m_videoOverlay.empty() -> if there is no RGB video, we can only use a B&W output
 
         if(!outputVideo.isOpened()) {
             std::cerr << "Cannot write: " << (records[0].m_name + ".mkv") << std::endl;
