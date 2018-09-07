@@ -16,7 +16,7 @@ LDFLAGS = -L/usr/local/opt/boost/lib \
           -L../liblinper/bin \
 		  -L../libmeanshift/bin \
 		  -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_imgcodecs \
-		  -lboost_program_options -lboost_exception -lboost_thread-mt -lboost_system \
+		  -lboost_program_options -lboost_exception -lboost_thread -lboost_system \
 		  -lfftw3 \
 		  -llinper \
 		  -lmean_shift
@@ -35,7 +35,7 @@ $(TARGET_LIB): $(OBJS)
 	$(CL) ${CLFLAGS} $@ src/GBVS.o
 
 bin/gbvs : $(OBJS)
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) $^ $(LDFLAGS) -o $@ 
 %.o : %.cpp
 	$(CC) $(CFLAGS) -o $@ -c $<
 clean :

@@ -22,7 +22,7 @@ LDFLAGS = -L/usr/local/opt/boost/lib \
 		  -Llib/libhmd/bin \
 		  -Llib/libmeanshift/bin \
 		  -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_imgcodecs -lopencv_videoio \
-		  -lboost_program_options -lboost_exception -lboost_thread-mt -lboost_system -lboost_regex-mt \
+		  -lboost_program_options -lboost_exception -lboost_thread -lboost_system -lboost_regex \
 		  -lgnomonic -linter \
 		  -lbms \
 		  -lgbvs \
@@ -71,7 +71,7 @@ prior: $(PRIOR)
 feature: $(FEATURE)
 
 bin/salient : $(OBJS)
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) $^ $(LDFLAGS) -o $@ 
 %.o : %.cpp
 	$(CC) $(CFLAGS) -o $@ -c $<
 clean :
@@ -91,15 +91,15 @@ cleaner : clean
 
 
 bin/bms : $(TESTS_OBJS)
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) $^ $(LDFLAGS) -o $@ 
 
 
 bin/analysis : $(ANALYSIS_OBJS)
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) $^ $(LDFLAGS) -o $@ 
 
 bin/apply_prior : $(PRIOR_OBJS)
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) $^ $(LDFLAGS) -o $@ 
 
 bin/feature : $(FEATURE_OBJS)
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) $^ $(LDFLAGS) -o $@ 
 	
