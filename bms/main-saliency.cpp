@@ -348,7 +348,7 @@ int main(int argc, char **argv) {
 
 	if(!outputPath.empty()) {
 		cv::Mat tmp;
-		cv::cvtColor(sMap, tmp, CV_GRAY2BGR);
+		cv::cvtColor(sMap, tmp, cv::COLOR_GRAY2BGR);
 		tmp *= 255;
 		tmp.convertTo(tmp, CV_8UC3);
 		cv::imwrite(outputPath, tmp);

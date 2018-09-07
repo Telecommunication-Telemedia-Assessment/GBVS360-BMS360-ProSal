@@ -1,3 +1,12 @@
+BOOST_MT=""
+ifneq ($(OS),Windows_NT)
+    UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S),Darwin)
+        BOOST_MT=-mt
+    endif
+endif
+
+
 CC = clang++
 CL = ar
 CFLAGS = -fPIC -O2 -W -Wall -g -std=c++14 \
@@ -7,7 +16,7 @@ CFLAGS = -fPIC -O2 -W -Wall -g -std=c++14 \
 LDFLAGS = -L/usr/local/opt/boost/lib \
 		  -L/usr/local/opt/opencv/lib \
 		  -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_imgcodecs -lopencv_videoio \
-		  -lboost_program_options -lboost_exception -lboost_thread-mt -lboost_system -lboost_regex-mt 
+		  -lboost_program_options -lboost_exception -lboost_thread${BOOST_MT} -lboost_system -lboost_regex${BOOST_MT} 
 
 CLFLAGS = rvs
 

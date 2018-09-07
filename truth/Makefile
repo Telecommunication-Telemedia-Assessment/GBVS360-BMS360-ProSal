@@ -1,3 +1,11 @@
+BOOST_MT=""
+ifneq ($(OS),Windows_NT)
+    UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S),Darwin)
+        BOOST_MT=-mt
+    endif
+endif
+
 CC = clang++
 CFLAGS = -W -Wall -g  -std=c++14 \
 			 -I/usr/local/opt/opencv/include \
@@ -12,7 +20,7 @@ LDFLAGS = -L/usr/local/opt/boost/lib \
 		  -L../lib/libgnomonic/bin -L../lib/libgnomonic/lib/libinter/bin \
 		  -L../lib/libjsonspirit/bin \
 		  -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_imgcodecs -lopencv_videoio \
-		  -lboost_program_options -lboost_exception -lboost_thread -lboost_system -lboost_regex -lboost_filesystem \
+		  -lboost_program_options -lboost_exception -lboost_thread${BOOST_MT} -lboost_system -lboost_regex${BOOST_MT} -lboost_filesystem \
 		  -lgnomonic -linter \
 		  -ljson 
 

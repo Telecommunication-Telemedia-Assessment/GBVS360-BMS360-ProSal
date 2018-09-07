@@ -1,3 +1,11 @@
+BOOST_MT=""
+ifneq ($(OS),Windows_NT)
+    UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S),Darwin)
+        BOOST_MT=-mt
+    endif
+endif
+
 CC = clang++
 CL = ar
 CLFLAGS = rvs
@@ -16,7 +24,7 @@ LDFLAGS = -L/usr/local/opt/boost/lib \
           -L../liblinper/bin \
 		  -L../libmeanshift/bin \
 		  -lopencv_core -lopencv_imgproc -lopencv_objdetect -lopencv_highgui -lopencv_imgcodecs \
-		  -lboost_program_options -lboost_exception -lboost_thread -lboost_system \
+		  -lboost_program_options -lboost_exception -lboost_thread${BOOST_MT} -lboost_system \
 		  -lfftw3 \
 		  -llinper \
 		  -lmean_shift

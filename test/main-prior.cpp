@@ -93,7 +93,7 @@ float simpleShape(cv::Mat &image) {
 	if(image.empty()) return 0;
 
 	cv::Mat gray;
-	cv::cvtColor(image, gray, CV_BGR2GRAY);
+	cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
 
 	cv::Mat edges;
 	cv::Canny(gray, edges, 200, 400);
@@ -133,7 +133,7 @@ float  horizonLine(cv::Mat &image) {
 	std::vector<float> x, y;
 
 	cv::Mat gray;
-	cv::cvtColor(image, gray, CV_BGR2GRAY);
+	cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
 
 	cv::Mat edges;
 	cv::Canny(gray, edges, 110, 220);
@@ -210,7 +210,7 @@ return meanY;
 
 float faceLine(cv::Mat &image) {
 	cv::Mat gray;
-	cv::cvtColor(image, gray, CV_BGR2GRAY);
+	cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
 
 	cv::CascadeClassifier face_cascade;
 	cv::CascadeClassifier faceProfil_cascade;
@@ -239,7 +239,7 @@ float faceLine(cv::Mat &image) {
 	std::list<cv::Rect> allFeatures;
 	std::vector<cv::Rect> faceFeatures;
 	if(faceCascadeEnabled)
-		face_cascade.detectMultiScale( gray, faceFeatures, 2, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(15, 15) );
+		face_cascade.detectMultiScale( gray, faceFeatures, 2, 2, 0| cv::CASCADE_SCALE_IMAGE, cv::Size(15, 15) );
 
 	for(size_t i = 0 ; i < faceFeatures.size() ; ++i) {
 		cv::rectangle(image, faceFeatures[i], cv::Scalar( 0, 0, 255 ));
@@ -248,7 +248,7 @@ float faceLine(cv::Mat &image) {
 
 	faceFeatures.clear();
 	if(faceProfilCascadeEnabled)
-		faceProfil_cascade.detectMultiScale( gray, faceFeatures, 2, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(15, 15) );
+		faceProfil_cascade.detectMultiScale( gray, faceFeatures, 2, 2, 0|cv::CASCADE_SCALE_IMAGE, cv::Size(15, 15) );
 
 	for(size_t i = 0 ; i < faceFeatures.size() ; ++i) {
 		cv::rectangle(image, faceFeatures[i], cv::Scalar( 255, 255, 0 ));
@@ -566,7 +566,7 @@ int main(int argc, char **argv) {
 
 
 
-	cv::cvtColor(image, image, CV_BGR2GRAY);
+	cv::cvtColor(image, image, cv::COLOR_BGR2GRAY);
 
 	image.convertTo(image, CV_32FC1);
 	image /= 255;
@@ -577,7 +577,7 @@ int main(int argc, char **argv) {
 		if(imageW.empty()) {
 			std::cerr << "cannot open: " << vm["second-file"].as< std::string >() << std::endl ;
 		} else {
-			cv::cvtColor(imageW, imageW, CV_BGR2GRAY);
+			cv::cvtColor(imageW, imageW, cv::COLOR_BGR2GRAY);
 			imageW.convertTo(imageW, CV_32FC1);
 			imageW /= 255;
 
@@ -623,7 +623,7 @@ int main(int argc, char **argv) {
 
 	if(!outputPath.empty()) {
 		cv::Mat tmp;
-		cv::cvtColor(image, tmp, CV_GRAY2BGR);
+		cv::cvtColor(image, tmp, cv::COLOR_GRAY2BGR);
 		tmp *= 255;
 		tmp.convertTo(tmp, CV_8UC3);
 		cv::imwrite(outputPath, tmp);
