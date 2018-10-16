@@ -74,16 +74,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\Library\opencv_gpu\include;..\..\Library\boost_1_66_0;..\lib\libgnomonic\src;..\lib\libgnomonic\lib\libinter\src;..\lib\libjsonspirit\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;..\..\Library\opencv_gpu\x64\vc14\lib;..\..\Library\boost_1_66_0\stage\lib</LibraryPath>
+    <IncludePath>..\..\Library\OpenCV\build\include;..\..\Library\boost_1_63_0;..\lib\libgnomonic\src;..\lib\libgnomonic\lib\libinter\src;..\lib\libjsonspirit\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;..\..\Library\OpenCV\build\x64\vc14\lib;..\..\Library\boost_1_63_0\stage\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\Library\opencv_gpu\include;..\..\Library\boost_1_66_0;..\lib\libgnomonic\src;..\lib\libgnomonic\lib\libinter\src;..\lib\libjsonspirit\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;..\..\Library\opencv_gpu\x64\vc14\lib;..\..\Library\boost_1_66_0\stage\lib</LibraryPath>
+    <IncludePath>..\..\Library\OpenCV\build\include;..\..\Library\boost_1_63_0;..\lib\libgnomonic\src;..\lib\libgnomonic\lib\libinter\src;..\lib\libjsonspirit\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;..\..\Library\OpenCV\build\x64\vc14\lib;..\..\Library\boost_1_63_0\stage\lib</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -109,7 +109,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>"$(OutDir)\libinter.lib" "$(OutDir)\libgnomonic.lib" "$(OutDir)\libjsonspirit.lib" opencv_core341.lib opencv_highgui341.lib  opencv_imgcodecs341.lib opencv_imgproc341.lib opencv_objdetect341.lib  opencv_videoio341.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>"$(OutDir)\libinter.lib" "$(OutDir)\libgnomonic.lib" "$(OutDir)\libjsonspirit.lib" opencv_world320.lib </AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,7 +144,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>"$(OutDir)\libinter.lib" "$(OutDir)\libgnomonic.lib" "$(OutDir)\libjsonspirit.lib" opencv_core341.lib opencv_highgui341.lib  opencv_imgcodecs341.lib opencv_imgproc341.lib opencv_objdetect341.lib  opencv_videoio341.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>"$(OutDir)\libinter.lib" "$(OutDir)\libgnomonic.lib" "$(OutDir)\libjsonspirit.lib" opencv_world320.lib </AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
