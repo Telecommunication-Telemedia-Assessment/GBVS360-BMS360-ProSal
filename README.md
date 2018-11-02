@@ -52,9 +52,10 @@ The journal paper related to this work has been accepted for publication. In cas
   title={GBVS360, BMS360, ProSal: Extending existing saliency prediction models from 2D to omnidirectional images},
   author={Lebreton, Pierre and Raake, Alexander},
   journal={Signal Processing: Image Communication},
-  volume={??},
-  pages={??--??},
+  volume={69},
+  pages={69--78},
   year={2018},
+  month={november},
   publisher={Elsevier}
 }
 ```
@@ -68,8 +69,9 @@ For the evaluation scripts used in this study, please refer and cite:
   author={Guti{\'e}rrez, Jes{\'u}s and David, Erwan and Rai, Yashas and Le Callet, Patrick 
 }, 
   journal={Signal Processing: Image Communication}, 
-  volume={??}, 
-  pages={??--??}, 
+  volume={69}, 
+  pages={35--42}, 
+  month={november},
   year={2018}, 
   publisher={Elsevier} 
 }
